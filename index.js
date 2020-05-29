@@ -28,7 +28,7 @@ async function run() {
         return dDisplay + hDisplay + mDisplay + sDisplay;
         }
 
-      const elapsedTimeInSeconds = (closedAt - createdAt) / 1000;
+      const elapsedTimeInSeconds = (await closedAt - await createdAt) / 1000;
       const elapsedTime = convertSecondsToMinHoursDays(elapsedTimeInSeconds);
       console.log(elapsedTime)
 
@@ -42,7 +42,6 @@ async function run() {
       core.info(
         `Created comment id: '${comment.id}'.`
       );
-      core.setOutput("comment-id", comment.id);
 
     } catch (error) {
       core.setFailed(error.message);
