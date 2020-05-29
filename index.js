@@ -6,36 +6,42 @@ async function run() {
       const inputs = {
         token: core.getInput("token"),
       };
-      // const repository = process.env.GITHUB_REPOSITORY;
-      // const ref = process.env.GITHUB_REF;
-      // const pr_ref = ref.split("/")
-
-      const time = (new Date()).toTimeString();
-      
-      // const repo = repository.split("/");
-      // core.debug(`repository: ${repository}`);
   
       const octokit = new github.GitHub(inputs.token);
       const issue_number = github.context.issue.number;
       const owner = github.context.issue.owner;
       const repo = github.context.issue.repo;
 
-      const created_at = github.context.payload.pull_request.created_at;
-      console.log("created: ", created_at)
-      const closed_at = github.context.payload.pull_request.closed_at;
-      console.log("closed: ", closed_at)
+      const createdAt = github.context.payload.pull_request.created_at;
+      const closedAt = github.context.payload.pull_request.closed_at;
+
+      const convertSecondsToMinHoursDays = duration => {
+        const d = Math.floor(duration / (3600*24));
+        const h = Math.floor(duration % (3600*24) / 3600);
+        const m = Math.floor(duration % 3600 / 60);
+        const s = Math.floor(duration % 60);
+
+        const dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
+        const hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+        const mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+        const sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+        return dDisplay + hDisplay + mDisplay + sDisplay;
+        }
+
+      const elapsedTimeInSeconds = (closedAt - createdAt) / 1000;
+      const elapsedTime = convertSecondsToMinHoursDays(elapsedTimeInSeconds);
 
       // Create a comment
       const { data: comment } = await octokit.issues.createComment({
         owner,
         repo,
         issue_number,
-        body: `this is the message at ${time}`,
+        body: `This PR took ${elapsedTime} to complete!`,
       });
       core.info(
-        `Created comment id '${comment.id} at ${time}'.`
+        `Created comment id: '${comment.id}'.`
       );
-      core.setOutput("comment-id", comment.id, "time", time);
+      core.setOutput("comment-id", comment.id);
 
     } catch (error) {
       core.setFailed(error.message);
