@@ -9,4 +9,4 @@ jobs:
 
     steps:
     - name: add a comment
-      uses: SophieHau/pr-comment-action@v32
+      uses: SophieHau/pr-comment-action@v33
