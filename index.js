@@ -18,6 +18,7 @@ async function run() {
       console.log(closedAt)
 
       const convertSecondsToMinHoursDays = duration => {
+        duration = Number(duration)
         const d = Math.floor(duration / (3600*24));
         const h = Math.floor(duration % (3600*24) / 3600);
         const m = Math.floor(duration % 3600 / 60);
@@ -30,7 +31,7 @@ async function run() {
         return dDisplay + hDisplay + mDisplay + sDisplay;
         }
 
-      const elapsedTimeInSeconds = (closedAt - createdAt) / 1000;
+      const elapsedTimeInSeconds = Number(closedAt - createdAt) / 1000;
       console.log(elapsedTimeInSeconds)
       const elapsedTime = convertSecondsToMinHoursDays(elapsedTimeInSeconds);
       console.log(elapsedTime)
