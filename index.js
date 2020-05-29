@@ -8,19 +8,18 @@ async function run() {
         token: core.getInput("token"),
         body: core.getInput("body"),
       };
-      console.log(inputs)
-      console.log(process.env)  
       const repository = process.env.GITHUB_REPOSITORY;
+      const ref = process.env.GITHUB_REF;
     
       const repo = repository.split("/");
       core.debug(`repository: ${repository}`);
   
-  
+      console.log(repo)
       const octokit = new github.GitHub(inputs.token);
-      console.log(octokit)
+      console.log(octokit.pulls)
   
       // Create a comment
-      const { data: comment } = await octokit.issues.createComment({
+      const { data: comment } = await octokit.pulls.createComment({
         owner: repo[0],
         repo: repo[1],
         body: inputs.body,
@@ -29,9 +28,9 @@ async function run() {
         `Created comment id '${comment.id}' on issue '${inputs.issueNumber}'.`
       );
       core.setOutput("comment-id", comment.id);
+      console.log(comment.id)
 
     } catch (error) {
-      core.debug(inspect(error));
       core.setFailed(error.message);
     }
   }
