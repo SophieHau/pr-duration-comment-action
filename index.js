@@ -30,6 +30,7 @@ async function run() {
 
       const elapsedTimeInSeconds = (closedAt - createdAt) / 1000;
       const elapsedTime = convertSecondsToMinHoursDays(elapsedTimeInSeconds);
+      console.log(elapsedTime)
 
       // Create a comment
       const { data: comment } = await octokit.issues.createComment({
