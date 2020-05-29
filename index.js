@@ -19,13 +19,15 @@ async function run() {
       const issue_number = github.context.issue.number;
       const owner = github.context.issue.owner;
       const repo = github.context.issue.repo;
-      
+
       console.log("issue number: ", issue_number)
       console.log("listevents:",await octokit.issues.listEvents({
         owner,
         repo,
         issue_number
       }))
+      console.log("issue: ", github.context.issue)
+      console.log("payload: ", github.context.payload)
   
       // Create a comment
       const { data: comment } = await octokit.issues.createComment({
