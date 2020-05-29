@@ -12,7 +12,7 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: add a comment
-      uses: SophieHau/pr-comment-action@v13
+      uses: SophieHau/pr-comment-action@v14
       with:
           body: |
             This is a multi-line test comment
