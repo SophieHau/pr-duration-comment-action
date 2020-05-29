@@ -16,17 +16,21 @@ async function run() {
       // core.debug(`repository: ${repository}`);
   
       const octokit = new github.GitHub(inputs.token);
-      issue_number = github.context.issue.number
+      const issue_number = github.context.issue.number;
+      const owner = github.context.issue.owner;
+      const repo = github.context.issue.repo;
+      
       console.log("issue number: ", issue_number)
-      console.log("listevents:",await octokit.issues.listEvents({issue_number: issue_number}))
-      console.log("meta: ", await octokit.meta.get({issue_number: issue_number}))
-      console.log("issues get: ", await octokit.issues.get({issue_number: issue_number}))
-      console.log("issues milestone: ", await octokit.issues.getMilestone({issue_number: issue_number}))
+      console.log("listevents:",await octokit.issues.listEvents({
+        owner,
+        repo,
+        issue_number
+      }))
   
       // Create a comment
       const { data: comment } = await octokit.issues.createComment({
-        owner: github.context.repo.owner,
-        repo: github.context.repo.repo,
+        owner,
+        repo,
         issue_number,
         body: `this is the message at ${time}`,
       });
