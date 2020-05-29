@@ -18,9 +18,6 @@ async function run() {
       createdAt = new Date(createdAt)
       closedAt = new Date(closedAt)
 
-      console.log(createdAt)
-      console.log(closedAt)
-
       const convertSecondsToMinHoursDays = duration => {
         const seconds = Number(duration)
         const d = Math.floor(seconds / (3600*24));
@@ -35,11 +32,8 @@ async function run() {
         return dDisplay + hDisplay + mDisplay + sDisplay;
         }
 
-      const elapsedTimeInSeconds = (closedAt - createdAt) / 1000;
-      console.log(elapsedTimeInSeconds)
-      
+      const elapsedTimeInSeconds = (closedAt - createdAt) / 1000;      
       const elapsedTime = convertSecondsToMinHoursDays(elapsedTimeInSeconds);
-      console.log(elapsedTime)
 
       // Create a comment
       const { data: comment } = await octokit.issues.createComment({
