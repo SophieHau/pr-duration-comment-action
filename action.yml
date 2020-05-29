@@ -1,0 +1,10 @@
+name: 'PR Comment'
+description: 'Add a comment to a closed PR'
+
+outputs:
+  comment:
+    description: 'The added comment'
+    
+runs:
+  using: 'node12'
+  main: 'index.js'
