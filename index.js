@@ -9,8 +9,9 @@ async function run() {
       const repository = process.env.GITHUB_REPOSITORY;
       const ref = process.env.GITHUB_REF;
       const pr_ref = ref.split("/")
-      console.log(process.env)
-    
+
+      const time = (new Date()).toTimeString();
+      
       const repo = repository.split("/");
       core.debug(`repository: ${repository}`);
   
@@ -24,10 +25,9 @@ async function run() {
         body: "this is the message",
       });
       core.info(
-        `Created comment id '${comment.id}'.`
+        `Created comment id '${comment.id} at ${time}'.`
       );
-      core.setOutput("comment-id", comment.id);
-      console.log(comment.id)
+      core.setOutput("comment-id", comment.id, "time", time);
 
     } catch (error) {
       core.setFailed(error.message);
