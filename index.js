@@ -6,10 +6,11 @@ async function run() {
     try {
       const inputs = {
         token: core.getInput("token"),
-        body: core.getInput("body"),
       };
       const repository = process.env.GITHUB_REPOSITORY;
       const ref = process.env.GITHUB_REF;
+      const pr_ref = ref.split("/")
+      console.log(pr_number)
     
       const repo = repository.split("/");
       core.debug(`repository: ${repository}`);
@@ -22,10 +23,11 @@ async function run() {
       const { data: comment } = await octokit.pulls.createComment({
         owner: repo[0],
         repo: repo[1],
-        body: inputs.body,
+        pull_number: pr_ref[-1],
+        body: "this is the message"
       });
       core.info(
-        `Created comment id '${comment.id}' on issue '${inputs.issueNumber}'.`
+        `Created comment id '${comment.id}'.`
       );
       core.setOutput("comment-id", comment.id);
       console.log(comment.id)
