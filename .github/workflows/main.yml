@@ -12,11 +12,7 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: add a comment
-      uses: SophieHau/pr-comment-action@v14
-      with:
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown**
+      uses: SophieHau/pr-comment-action@v15
 
     # Runs a single command using the runners shell
     - name: Run a one-line script
