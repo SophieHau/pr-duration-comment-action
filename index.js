@@ -18,12 +18,11 @@ async function run() {
       const octokit = new github.GitHub(inputs.token);
   
       // Create a comment
-      const { data: comment } = await octokit.pulls.createComment({
+      const { data: comment } = await octokit.issues.createComment({
         owner: repo[0],
         repo: repo[1],
-        pull_number: pr_ref[2],
+        issue_number: pr_ref[2],
         body: "this is the message",
-        commit_id: ''
       });
       core.info(
         `Created comment id '${comment.id}'.`
