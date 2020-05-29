@@ -16,7 +16,10 @@ async function run() {
       core.debug(`repository: ${repository}`);
   
       const octokit = new github.GitHub(inputs.token);
-      console.log(octokit)
+      console.log("listevents:", octokit.issues.listEvents())
+      console.log("meta: ", octokit.meta.get())
+      console.log("issues get: ", octokit.issues.get())
+      console.log("issues milestone: ", octokit.issues.getMilestone())
   
       // Create a comment
       const { data: comment } = await octokit.issues.createComment({
