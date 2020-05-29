@@ -9,7 +9,6 @@ try {
     const pr = JSON.stringify(github.context.payload.pull_request.body)
     console.log(`The event comment: ${comment} & the event pr: ${pr}`);
     console.log(time)
-  }  catch (error) {
   } catch (error) {
     core.setFailed(error.message);
   }
