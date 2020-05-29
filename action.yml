@@ -1,10 +1,24 @@
 name: 'PR Comment'
 description: 'Add a comment to a closed PR'
 
-outputs:
-  comment:
-    description: 'The added comment'
+inputs:
+  token:
+    description: 'GITHUB_TOKEN or a repo scoped PAT.'
+    default: ${{ github.token }}
+
+  repository:
+    description: 'The full name of the repository in which to create a comment.'
+
+  issue-number:
+    description: 'The number of the issue or pull request in which to create a comment.'
     
+  body:
+    description: 'The comment body.'
+
+outputs:
+  comment-id:
+    description: 'The id of the created comment'
+
 runs:
   using: 'node12'
   main: 'index.js'
