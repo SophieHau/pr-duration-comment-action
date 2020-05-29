@@ -12,8 +12,10 @@ async function run() {
       const owner = github.context.issue.owner;
       const repo = github.context.issue.repo;
 
-      const createdAt = github.context.payload.pull_request.created_at;
-      const closedAt = github.context.payload.pull_request.closed_at;
+      const createdAt = await github.context.payload.pull_request.created_at;
+      const closedAt = await github.context.payload.pull_request.closed_at;
+      console.log(createdAt)
+      console.log(closedAt)
 
       const convertSecondsToMinHoursDays = duration => {
         const d = Math.floor(duration / (3600*24));
@@ -28,7 +30,8 @@ async function run() {
         return dDisplay + hDisplay + mDisplay + sDisplay;
         }
 
-      const elapsedTimeInSeconds = (await closedAt - await createdAt) / 1000;
+      const elapsedTimeInSeconds = (closedAt - createdAt) / 1000;
+      console.log(elapsedTimeInSeconds)
       const elapsedTime = convertSecondsToMinHoursDays(elapsedTimeInSeconds);
       console.log(elapsedTime)
 
