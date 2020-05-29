@@ -10,7 +10,7 @@ async function run() {
       const repository = process.env.GITHUB_REPOSITORY;
       const ref = process.env.GITHUB_REF;
       const pr_ref = ref.split("/")
-      console.log(pr_number)
+      console.log(pr_ref)
     
       const repo = repository.split("/");
       core.debug(`repository: ${repository}`);
