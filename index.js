@@ -12,8 +12,8 @@ async function run() {
       const owner = github.context.issue.owner;
       const repo = github.context.issue.repo;
 
-      const createdAt = github.context.payload.pull_request.created_at;
-      const closedAt = github.context.payload.pull_request.closed_at;
+      let createdAt = github.context.payload.pull_request.created_at;
+      let closedAt = github.context.payload.pull_request.closed_at;
 
       createdAt = new Date(createdAt)
       closedAt = new Date(closedAt)
