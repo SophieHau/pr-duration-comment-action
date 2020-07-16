@@ -1,4 +1,4 @@
-# pr-comment-action
+# PR-LENGTH-COMMENT-ACTION
 
 This action creates a comment when a PR is closed, informing the user how long it took to complete it.
 
